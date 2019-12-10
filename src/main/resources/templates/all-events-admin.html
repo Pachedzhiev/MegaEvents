@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/guest-head}"/>
+</head>
+<body id="page-top">
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <th:block th:include="~{fragments/user-navbar}"/>
+    </nav>
+    <header class="masthead">
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Welcome To MEGA EVENTS!</div>
+                <div class="intro-heading text-uppercase">It's Nice To Meet You!</div>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-4 d-flex justify-content-around">
+                <div th:each="event,iStat: ${events}" class="col-md-3 d-flex flex-column text-center">
+                    <img th:src="${event.getImageUrl()}" class="img-thumbnail" width="300" height="300">
+                    <h5 class="text-center" th:text="${event.getName()}"></h5>
+                    <h6 class="text-center" th:text="${event.getAddress()}"></h6>
+                    <a th:href="@{/events/details/{id}(id=${event.id})}"
+                       class="btn btn-primary btn-primary text-uppercase js-scroll-trigger">Details</a>
+                </div>
+                <form action="#" method="post" th:action="@{/borrow-garage/{id}(id=${garage.id})}">
+                    <select name="freeFrom" class="mdb-select md-form colorful-select dropdown-primary">
+                        <option style="color: black" th:each="date,iStat: ${dates}" name="freeFrom"
+                                th:value="${date.getFreeFrom()}"
+                                th:text="${date.getFreeFrom()}+' - '+ ${date.getFreeUntil()}">
+                        </option>
+                    </select>
+                    <input class="btn btn-primary btn-primary text-uppercase js-scroll-trigger" type="submit"
+                           value="Borrow">
+                </form>
+                <a th:href="@{/events/details/{id}(id=${event.id})}"
+                   class="btn btn-primary btn-primary text-uppercase js-scroll-trigger">Add Hotel</a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.jackdaniels.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/jackdaniels.png}"
+                             alt="Logo">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.greygoose.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/grey.jpg}" alt="Logos">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.glenfiddich.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/glen.jpg}" alt="Logoa">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.finlandia.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/fin.jpg}" alt="Logod">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients -->
+
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{/static/vendor/jquery/jquery.min.js}"></script>-->
+    <!--<script type="text/javascript" th:inline="javascript"-->
+    <!--th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>-->
+
+    <!--&lt;!&ndash; Plugin JavaScript &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript"-->
+    <!--th:src="@{static/vendor/jquery-easing/jquery.easing.min.js}"></script>-->
+
+    <!--&lt;!&ndash; Contact form JavaScript &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/jqBootstrapValidation.js}"></script>-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/contact_me.js}"></script>-->
+
+    <!--&lt;!&ndash; Custom scripts for this template &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/agency.min.js}"></script>-->
+
+    <footer class="footer">
+        <th:block th:include="~{fragments/footer}"/>
+    </footer>
+</div>
+</body>
+</html>

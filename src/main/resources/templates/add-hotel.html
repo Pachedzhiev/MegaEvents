@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/guest-head}"/>
+</head>
+<body id="page-top">
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <th:block th:include="~{fragments/user-navbar}"/>
+    </nav>
+    <header class="masthead">
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Add Hotel</div>
+                <form th:action="@{/hotel/create}" th:method="post"  enctype="multipart/form-data">
+                    <div class="register-form row justify-content-center">
+                        <div class="col-auto">
+                            Name:<br>
+                            <input type="text" class="round-corners" name="name" placeholder="Hotel's name..."><br><br>
+                            Address:<br>
+                            <input type="text" class="round-corners" name="address"
+                                   placeholder="Hotel's address..."><br><br>
+                            Description:<br>
+                            <input type="text" class="round-corners input-large" name="description"
+                                   placeholder="Hotel's description..."><br><br>
+                            Single rooms:<br>
+                            <input type="number" class="round-corners" name="singleRoom"
+                                   placeholder="Count of single rooms..."><br><br>
+                            Double rooms:<br>
+                            <input type="number" class="round-corners" name="doubleRoom"
+                                   placeholder="Count of double rooms..."><br><br>
+                            Room for three:<br>
+                            <input type="number" class="round-corners" name="roomForThree"
+                                   placeholder="Count of rooms for three..."><br><br>
+                            Room for four:<br>
+                            <input type="number" class="round-corners" name="roomForFour"
+                                   placeholder="Count of rooms for four..."><br><br>
+                            Photo:<br>
+                            <input type="file" class="round-corners" name="image" placeholder="Hotel's photo..."><br><br><br>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.jackdaniels.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/jackdaniels.png}" alt="Logo">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.greygoose.com">
+                        <img class="img-fluid d-block mx-auto pic-small"  th:src="@{/img/logos/grey.jpg}" alt="Logos">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.glenfiddich.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/glen.jpg}" alt="Logoa">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.finlandia.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/fin.jpg}" alt="Logod">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <th:block th:include="~{fragments/footer}"/>
+    </footer>
+</div>
+</body>
+</html>

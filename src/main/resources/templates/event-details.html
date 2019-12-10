@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/guest-head}"/>
+</head>
+<body id="page-top">
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavForEH">
+        <th:block th:include="~{fragments/user-navbar}"/>
+    </nav>
+    <!--<header class="masthead2">-->
+    <!--<div class="container">-->
+    <!--<div class="intro-text">-->
+    <!--<div class="intro-lead-in">-->
+    <!--<h1 th:text="${event.name}"></h1>-->
+    <!--</div>-->
+    <!--<div class="w3-content w3-section " style="max-width:2000px">-->
+    <!--<img th:src="${event.imageUrl}" style="width:100%">-->
+    <!--</div>-->
+
+    <!--</div>-->
+    <!--</div>-->
+    <!--</header>-->
+
+    <header class="py-5">
+        <div class="container">
+            <div class="intro-text ">
+                <form th:action="@{/events/details/{id}(id=${event.id})}" th:method="post" >
+                    <div class="intro-lead-in">
+                        <br><br><br><br><br><br>
+                        <h1 class="justify-content-center" th:text="${event.name}"></h1>
+                    </div>
+                    <br><br>
+                    <div class="w3-content w3-section " style="max-width:2000px">
+                        <img th:src="${event.imageUrl}" style="width:100%">
+                        <h4 th:text="${event.date}"></h4>
+                        <br><br>
+                        <h5 th:text="${event.description}"></h5>
+                        <br><br>
+                        Price:
+                        <h5 th:text="${event.price}"></h5>
+                    </div>
+                    <div >
+                        Tickets:<br>
+                        <input type="number" class="round-corners justify-content-center" name="countOfTickets"
+                               placeholder="Count of tickets..."><br><br>
+                        <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Buy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.jackdaniels.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/jackdaniels.png}"
+                             alt="Logo">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.greygoose.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/grey.jpg}" alt="Logos">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.glenfiddich.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/glen.jpg}" alt="Logoa">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.finlandia.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/fin.jpg}" alt="Logod">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients -->
+
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{/static/vendor/jquery/jquery.min.js}"></script>-->
+    <!--<script type="text/javascript" th:inline="javascript"-->
+    <!--th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>-->
+
+    <!--&lt;!&ndash; Plugin JavaScript &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript"-->
+    <!--th:src="@{static/vendor/jquery-easing/jquery.easing.min.js}"></script>-->
+
+    <!--&lt;!&ndash; Contact form JavaScript &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/jqBootstrapValidation.js}"></script>-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/contact_me.js}"></script>-->
+
+    <!--&lt;!&ndash; Custom scripts for this template &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/agency.min.js}"></script>-->
+
+    <footer class="footer">
+        <th:block th:include="~{fragments/footer}"/>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/guest-head}"/>
+</head>
+<body id="page-top">
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <th:block th:include="~{fragments/user-navbar}"/>
+    </nav>
+    <header class="masthead">
+        <div class="container ">
+            <div class="intro-text">
+                <div class="w3-content w3-section" style="max-width:2000px">
+                    <img class="mySlides" th:src="@{/img/logos/carl.jpg}" style="width:100%">
+                    <img class="mySlides" th:src="@{/img/logos/maluma.jpg}" style="width:100%">
+                    <img class="mySlides" th:src="@{/img/logos/pitbull.jpg}" style="width:100%">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        var slideIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > x.length) {slideIndex = 1}
+            x[slideIndex-1].style.display = "block";
+            setTimeout(carousel, 4000);
+        }
+    </script>
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.jackdaniels.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/jackdaniels.png}" alt="Logo">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.greygoose.com">
+                        <img class="img-fluid d-block mx-auto pic-small"  th:src="@{/img/logos/grey.jpg}" alt="Logos">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.glenfiddich.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/glen.jpg}" alt="Logoa">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.finlandia.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/fin.jpg}" alt="Logod">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{/static/vendor/jquery/jquery.min.js}"></script>-->
+    <!--<script type="text/javascript" th:inline="javascript"-->
+    <!--th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>-->
+
+    <!--&lt;!&ndash; Plugin JavaScript &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript"-->
+    <!--th:src="@{static/vendor/jquery-easing/jquery.easing.min.js}"></script>-->
+
+    <!--&lt;!&ndash; Contact form JavaScript &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/jqBootstrapValidation.js}"></script>-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/contact_me.js}"></script>-->
+
+    <!--&lt;!&ndash; Custom scripts for this template &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/agency.min.js}"></script>-->
+
+    <footer class="footer">
+        <th:block th:include="~{fragments/footer}"/>
+    </footer>
+</div>
+</body>
+</html>

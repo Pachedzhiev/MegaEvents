@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/guest-head}"/>
+</head>
+<body id="page-top">
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <th:block th:include="~{fragments/guest-navbar}"/>
+    </nav>
+    <header class="masthead">
+        <div class="container">
+            <div class="intro-text" >
+                <div class="intro-lead-in" >Sign up</div>
+                <form   th:method="post" th:action="@{/register}"  >
+                    <div class="register-form row justify-content-center">
+                    <div class="col-auto">
+                        Username:<br>
+                        <input type="text"   class="round-corners" name="username" placeholder="Your username..."><br><br>
+                        Password:<br>
+                        <input type="password" class="round-corners" name="password" placeholder="Your password..."><br><br>
+                        ConfirmPassword:<br>
+                        <input type="password"  class="round-corners" name="confirmPassword" placeholder="Your password..."><br><br><br>
+                    </div>
+                    <div class="col-auto">
+                        Email:<br>
+                        <input type="text"  class="round-corners" name="email" placeholder="Your email..."><br> <br>
+                        Name:<br>
+                        <input type="text"  name="fullName" class="round-corners" placeholder="Your name..." ><br><br>
+                        Number:<br>
+                        <input type="text" name="number" class="round-corners" placeholder="Your number..."><br><br>
+                        <br>
+                    </div>
+                    </div>
+                    <div class="row justify-content-center" >
+                        <button type="submit" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" >Register</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Clients -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.jackdaniels.com">
+                        <img class="img-fluid d-block mx-auto" th:src="@{/img/logos/envato.jpg}" alt="Logo">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{/static/vendor/jquery/jquery.min.js}"></script>-->
+    <!--<script type="text/javascript" th:inline="javascript"-->
+    <!--th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>-->
+
+    <!--&lt;!&ndash; Plugin JavaScript &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript"-->
+    <!--th:src="@{static/vendor/jquery-easing/jquery.easing.min.js}"></script>-->
+
+    <!--&lt;!&ndash; Contact form JavaScript &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/jqBootstrapValidation.js}"></script>-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/contact_me.js}"></script>-->
+
+    <!--&lt;!&ndash; Custom scripts for this template &ndash;&gt;-->
+    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/agency.min.js}"></script>-->
+
+    <footer class="footer">
+        <th:block th:include="~{fragments/footer}"/>
+    </footer>
+</div>
+</body>
+</html>
