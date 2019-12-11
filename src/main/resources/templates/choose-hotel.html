@@ -12,49 +12,64 @@
     <header class="masthead">
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Welcome To MEGA EVENTS!</div>
-                <div class="intro-heading text-uppercase">It's Nice To Meet You!</div>
+                <div class="intro-lead-in">Choose your event</div>
+                <form method="post" th:action="@{/hotel/chooseevent}">
+                    <select name="event" class="mdb-select md-form colorful-select dropdown-primary">
+                        <option style="color: black" th:each="event,iStat: ${events}" name="event"
+                                th:value="${event.getName()}"
+                                th:text="${event.getName()}">
+                        </option>
+                    </select>
+                    <br>
+                    <br>
+                    <input class="btn btn-primary btn-primary text-uppercase js-scroll-trigger" type="submit"
+                           value="Find">
+                    <br>
+                    <br>
+                    <br>
+                </form>
             </div>
         </div>
     </header>
 
 
-    <section class="py-5">
-        <div class="container">
-            <div class="row mb-4 d-flex justify-content-around">
-                <div th:each="event,iStat: ${events}" class="col-md-3 d-flex flex-column text-center">
-                    <img th:src="${event.getImageUrl()}" class="img-thumbnail" width="300" height="300">
-                    <h5 class="text-center" th:text="${event.getName()}"></h5>
-                    <h6 class="text-center" th:text="${event.getAddress()}"></h6>
-                    <a th:href="@{/events/details/{id}(id=${event.id})}"
-                       class="btn btn-primary text-uppercase js-scroll-trigger">Details</a>
-                    <br>
-                    <form method="post" th:action="@{/event/delete/{id}(id=${event.id})}">
-                        <button class="btn btn-primary2 text-uppercase js-scroll-trigger">Delete</button>
-                    </form>
-                    <br>
-                    <form  method="post" th:action="@{/event/addhotel/{id}(id=${event.id})}">
-                        <select name="hotelName" class="mdb-select md-form colorful-select dropdown-primary">
-                            <option style="color: black" th:each="hotel,iStat: ${hotels}" name="hotelName"
-                                    th:value="${hotel.getName()}"
-                                    th:text="${hotel.getName()}">
-                            </option>
-                        </select>
-                        <br>
-                        <br>
-                        <input class="btn btn-primary btn-primary text-uppercase js-scroll-trigger" type="submit"
-                               value="Add Hotel">
-                        <br>
-                        <br>
-                        <br>
-                    </form>
-                </div>
+    <!--<header class="masthead">-->
+        <!--<div class="container">-->
+            <!--<div class="intro-text">-->
+                <!--<div class="intro-lead-in">Choose your event</div>-->
+                <!--<form method="post" th:action="@{/hotel/chooseevent/{id}(id=${event.id})}">-->
+                    <!--<select name="hotelName" class="mdb-select md-form colorful-select dropdown-primary">-->
+                        <!--<option style="color: black" th:each="event,iStat: ${events}" name="hotelName"-->
+                                <!--th:value="${event.getName()}"-->
+                                <!--th:text="${event.getName()}">-->
+                        <!--</option>-->
+                    <!--</select>-->
+                    <!--<br>-->
+                    <!--<br>-->
+                    <!--<input class="btn btn-primary btn-primary text-uppercase js-scroll-trigger" type="submit"-->
+                           <!--value="Find">-->
+                    <!--<br>-->
+                    <!--<br>-->
+                    <!--<br>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</header>-->
 
+    <!--<section class="py-5">-->
+        <!--<div class="container">-->
+            <!--<div class="row mb-4 d-flex justify-content-around">-->
+                <!--<div th:each="event,iStat: ${events}" class="col-md-3 d-flex flex-column text-center">-->
+                    <!--<img th:src="${event.getImageUrl()}" class="img-thumbnail" width="300" height="300">-->
+                    <!--<h5 class="text-center" th:text="${event.getName()}"></h5>-->
+                    <!--<h6 class="text-center" th:text="${event.getAddress()}"></h6>-->
+                    <!--<a th:href="@{/events/details/{id}(id=${event.id})}"-->
+                       <!--class="btn btn-primary btn-primary text-uppercase js-scroll-trigger">Details</a>-->
+                <!--</div>-->
+            <!--</div>-->
 
-            </div>
-
-        </div>
-    </section>
+        <!--</div>-->
+    <!--</section>-->
 
     <section class="py-5">
         <div class="container">

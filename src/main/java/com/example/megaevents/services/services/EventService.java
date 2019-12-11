@@ -18,4 +18,6 @@ public interface EventService {
     EventServiceModel findById(String id);
 
     void reserve(String username,String id,Integer count) throws Exception;
+
+    void deleteEvent(String id);
 }

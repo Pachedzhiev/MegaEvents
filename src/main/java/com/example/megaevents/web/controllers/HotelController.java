@@ -1,10 +1,13 @@
 package com.example.megaevents.web.controllers;
 
+import com.example.megaevents.services.models.EventServiceModel;
 import com.example.megaevents.services.models.HotelServiceModel;
 import com.example.megaevents.services.services.CloudinaryService;
+import com.example.megaevents.services.services.EventService;
 import com.example.megaevents.services.services.HotelService;
 import com.example.megaevents.web.controllers.base.BaseController;
 import com.example.megaevents.web.models.CreateHotelModel;
+import com.example.megaevents.web.models.EventForHotelModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,12 +27,14 @@ public class HotelController extends BaseController {
     private final ModelMapper mapper;
     private final HotelService hotelService;
     private final CloudinaryService cloudinaryService;
+    private final EventService eventService;
 
     @Autowired
-    public HotelController(ModelMapper mapper, HotelService hotelService, CloudinaryService cloudinaryService) {
+    public HotelController(ModelMapper mapper, HotelService hotelService, CloudinaryService cloudinaryService, EventService eventService) {
         this.mapper = mapper;
         this.hotelService = hotelService;
         this.cloudinaryService = cloudinaryService;
+        this.eventService = eventService;
     }
 
 
@@ -49,10 +54,25 @@ public class HotelController extends BaseController {
 
     @GetMapping("/hotels")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView allEvents(ModelAndView modelAndView){
+    public ModelAndView allHotels(ModelAndView modelAndView){
         List<HotelServiceModel> hotels=this.hotelService.findAll();
         modelAndView.addObject("hotels",hotels);
         return super.view("all-hotels",modelAndView);
 
+    }
+
+    @GetMapping("/hotel/chooseevent")
+    public ModelAndView chooseev(ModelAndView modelAndView){
+         List<EventServiceModel> events=this.eventService.findAll();
+         modelAndView.addObject("events",events);
+        return super.view("choose-hotel",modelAndView);
+    }
+
+    @PostMapping("/hotel/chooseevent")
+    public ModelAndView chooseEvent(EventForHotelModel event, ModelAndView modelAndView) throws Exception {
+        String eventName=event.getEvent();
+        List<HotelServiceModel> hotels=this.hotelService.getHotelsByEvent(eventName);
+        modelAndView.addObject("hotels",hotels);
+        return super.view("all-hotels",modelAndView);
     }
 }

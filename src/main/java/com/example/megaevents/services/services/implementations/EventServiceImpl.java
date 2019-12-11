@@ -1,13 +1,7 @@
 package com.example.megaevents.services.services.implementations;
 
-import com.example.megaevents.data.models.Event;
-import com.example.megaevents.data.models.Ticket;
-import com.example.megaevents.data.models.User;
-import com.example.megaevents.data.models.UserProfile;
-import com.example.megaevents.data.repositories.EventRepository;
-import com.example.megaevents.data.repositories.TicketRepository;
-import com.example.megaevents.data.repositories.UserProfileRepository;
-import com.example.megaevents.data.repositories.UserRepository;
+import com.example.megaevents.data.models.*;
+import com.example.megaevents.data.repositories.*;
 import com.example.megaevents.services.models.EventServiceModel;
 import com.example.megaevents.services.services.EventService;
 import org.modelmapper.ModelMapper;
@@ -76,8 +70,11 @@ public class EventServiceImpl implements EventService {
 
     }
 
-
-
+    @Override
+    public void deleteEvent(String id) {
+        Event event=this.eventRepository.getById(id);
+        this.eventRepository.delete(event);
+    }
 
 
     @Override

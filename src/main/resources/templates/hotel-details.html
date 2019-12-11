@@ -6,55 +6,52 @@
 </head>
 <body id="page-top">
 <div class="wrapper">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavForEH">
         <th:block th:include="~{fragments/user-navbar}"/>
     </nav>
-    <header class="masthead">
+    <!--<header class="masthead2">-->
+    <!--<div class="container">-->
+    <!--<div class="intro-text">-->
+    <!--<div class="intro-lead-in">-->
+    <!--<h1 th:text="${event.name}"></h1>-->
+    <!--</div>-->
+    <!--<div class="w3-content w3-section " style="max-width:2000px">-->
+    <!--<img th:src="${event.imageUrl}" style="width:100%">-->
+    <!--</div>-->
+
+    <!--</div>-->
+    <!--</div>-->
+    <!--</header>-->
+
+    <header class="py-5">
         <div class="container">
-            <div class="intro-text">
-                <div class="intro-lead-in">Welcome To MEGA EVENTS!</div>
-                <div class="intro-heading text-uppercase">It's Nice To Meet You!</div>
+            <div class="intro-text ">
+                <form th:action="@{/hotels/details/{id}(id=${hotel.id})}" th:method="post" >
+                    <div class="intro-lead-in">
+                        <br><br><br><br><br><br>
+                        <h1 class="justify-content-center" th:text="${hotel.name}"></h1>
+                    </div>
+                    <br><br>
+                    <div class="w3-content w3-section " style="max-width:2000px">
+                        <img th:src="${hotel.imageUrl}" style="width:100%">
+                        <h4 th:text="${hotel.date}"></h4>
+                        <br><br>
+                        <h5 th:text="${hotel.description}"></h5>
+                        <br><br>
+                        Price:
+                        <h5 th:text="${hotel.price}"></h5>
+                    </div>
+                    <div >
+                        Tickets:<br>
+                        <input type="number" class="round-corners justify-content-center" name="countOfTickets"
+                               placeholder="Count of tickets..."><br><br>
+                        <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Buy</button>
+                    </div>
+                </form>
             </div>
         </div>
     </header>
 
-
-    <section class="py-5">
-        <div class="container">
-            <div class="row mb-4 d-flex justify-content-around">
-                <div th:each="event,iStat: ${events}" class="col-md-3 d-flex flex-column text-center">
-                    <img th:src="${event.getImageUrl()}" class="img-thumbnail" width="300" height="300">
-                    <h5 class="text-center" th:text="${event.getName()}"></h5>
-                    <h6 class="text-center" th:text="${event.getAddress()}"></h6>
-                    <a th:href="@{/events/details/{id}(id=${event.id})}"
-                       class="btn btn-primary text-uppercase js-scroll-trigger">Details</a>
-                    <br>
-                    <form method="post" th:action="@{/event/delete/{id}(id=${event.id})}">
-                        <button class="btn btn-primary2 text-uppercase js-scroll-trigger">Delete</button>
-                    </form>
-                    <br>
-                    <form  method="post" th:action="@{/event/addhotel/{id}(id=${event.id})}">
-                        <select name="hotelName" class="mdb-select md-form colorful-select dropdown-primary">
-                            <option style="color: black" th:each="hotel,iStat: ${hotels}" name="hotelName"
-                                    th:value="${hotel.getName()}"
-                                    th:text="${hotel.getName()}">
-                            </option>
-                        </select>
-                        <br>
-                        <br>
-                        <input class="btn btn-primary btn-primary text-uppercase js-scroll-trigger" type="submit"
-                               value="Add Hotel">
-                        <br>
-                        <br>
-                        <br>
-                    </form>
-                </div>
-
-
-            </div>
-
-        </div>
-    </section>
 
     <section class="py-5">
         <div class="container">

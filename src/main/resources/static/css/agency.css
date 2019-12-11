@@ -108,6 +108,11 @@ img::-moz-selection {
   font-weight: 700;
 }
 
+.btn2 {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-weight: 700;
+}
+
 .btn-xl {
   font-size: 18px;
   padding: 20px 40px;
@@ -118,9 +123,21 @@ img::-moz-selection {
   border-color: #fed136;
 }
 
+.btn-primary2 {
+  background-color: #fe2b12;
+  border-color: #fe3714;
+}
+
+
 .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
   background-color: #fec810 !important;
   border-color: #fec810 !important;
+  color: white;
+}
+
+.btn-primary2:active, .btn-primary2:focus, .btn-primary2:hover {
+  background-color: #fe0016 !important;
+  border-color: #fe0016 !important;
   color: white;
 }
 

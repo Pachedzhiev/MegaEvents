@@ -12,4 +12,8 @@ public interface HotelService {
     HotelServiceModel findHotelByName(String name);
 
     List<HotelServiceModel> findAll();
+
+    void addHotel(String name, String hotelName) throws Exception;
+
+    List<HotelServiceModel> getHotelsByEvent(String eventName) throws Exception;
 }

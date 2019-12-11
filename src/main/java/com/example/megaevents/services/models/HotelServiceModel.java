@@ -26,4 +26,6 @@ public class HotelServiceModel {
     private Integer roomForThree;
 
     private Integer roomForFour;
+
+    private Integer price;
 }
