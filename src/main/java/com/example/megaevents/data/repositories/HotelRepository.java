@@ -20,5 +20,5 @@ public interface HotelRepository extends JpaRepository<Hotel,String> {
     List<Hotel> findAllByEvents(String name);
 
 
-
+    Hotel getById(String id);
 }

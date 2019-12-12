@@ -64,6 +64,7 @@ public class EventServiceImpl implements EventService {
         ticket.setCount(count);
         ticket.setEvent(event);
         ticket.setUser(userProfile);
+        ticket.setPrice(event.getPrice()*count);
         this.ticketRepository.save(ticket);
 
 

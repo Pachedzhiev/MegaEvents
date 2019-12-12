@@ -18,7 +18,7 @@ public class Ticket extends BaseEntity {
     private UserProfile user;
 
     @ManyToOne(targetEntity = Event.class)
-    @JoinColumn(name="event_id",nullable = false)
+    @JoinColumn(name="event_id")
     private Event event;
 
     @ManyToOne(targetEntity = Hotel.class)
@@ -27,4 +27,7 @@ public class Ticket extends BaseEntity {
 
     @Column(name="count")
     private Integer count;
+
+    @Column(name="price")
+    private Integer price;
 }

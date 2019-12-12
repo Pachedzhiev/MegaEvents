@@ -1,16 +1,16 @@
 package com.example.megaevents.services.services.implementations;
 
-import com.example.megaevents.data.models.Event;
-import com.example.megaevents.data.models.Hotel;
+import com.example.megaevents.data.models.*;
 import com.example.megaevents.data.repositories.EventRepository;
 import com.example.megaevents.data.repositories.HotelRepository;
+import com.example.megaevents.data.repositories.TicketRepository;
+import com.example.megaevents.data.repositories.UserRepository;
 import com.example.megaevents.services.models.HotelServiceModel;
 import com.example.megaevents.services.services.HotelService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +19,16 @@ public class HotelServiceImpl implements HotelService {
     private final HotelRepository hotelRepository;
     private final ModelMapper modelMapper;
     private final EventRepository eventRepository;
-
+    private final UserRepository userRepository;
+    private final TicketRepository ticketRepository;
 
     @Autowired
-    public HotelServiceImpl(HotelRepository hotelRepository, ModelMapper modelMapper, EventRepository eventRepository) {
+    public HotelServiceImpl(HotelRepository hotelRepository, ModelMapper modelMapper, EventRepository eventRepository, UserRepository userRepository, TicketRepository ticketRepository) {
         this.hotelRepository = hotelRepository;
         this.modelMapper = modelMapper;
         this.eventRepository = eventRepository;
+        this.userRepository = userRepository;
+        this.ticketRepository = ticketRepository;
     }
 
 
@@ -53,10 +56,36 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<HotelServiceModel> getHotelsByEvent(String eventName) throws Exception {
-        Event event=this.eventRepository.findByName(eventName).orElseThrow(() -> new Exception("Event not found"));
-
         List<HotelServiceModel> hotels=this.hotelRepository.findAllByEvents(eventName).stream().map(e -> modelMapper.map(e,HotelServiceModel.class)).collect(Collectors.toList());
         return hotels;
+    }
+
+    @Override
+    public HotelServiceModel findById(String id) {
+        return this.modelMapper.map(hotelRepository.getById(id), HotelServiceModel.class);
+    }
+
+    @Override
+    public void reserve(String username, String id, Integer singleroom, Integer doubleroom, Integer roomForThree, Integer roomForFour) throws Exception {
+        User user=this.userRepository.findUserByUsername(username).orElseThrow(() -> new Exception("User not found"));
+        Hotel hotel=this.hotelRepository.getById(id);
+        Integer price=hotel.getPrice();
+        Integer count=singleroom+singleroom*2+roomForThree*3+roomForFour*4;
+
+
+
+        Ticket ticket= new Ticket();
+        ticket.setCount(count);
+        ticket.setHotel(hotel);
+        ticket.setUser(user.getUserProfile());
+        ticket.setPrice(count*price);
+        this.ticketRepository.save(ticket);
+    }
+
+    @Override
+    public void deleteHotel(String id) {
+        Hotel hotel=this.hotelRepository.getById(id);
+        this.hotelRepository.delete(hotel);
     }
 
 

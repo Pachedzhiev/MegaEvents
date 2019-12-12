@@ -28,4 +28,6 @@ public class CreateHotelModel {
 
     private Integer roomForFour;
 
+    private Integer price;
+
 }

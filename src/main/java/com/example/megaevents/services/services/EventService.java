@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface EventService {
 
-   // ProductServiceModel addEvent(Prod)
 
     void save(EventServiceModel eventServiceModel);
 

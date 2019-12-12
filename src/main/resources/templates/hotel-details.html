@@ -6,22 +6,9 @@
 </head>
 <body id="page-top">
 <div class="wrapper">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavForEH">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <th:block th:include="~{fragments/user-navbar}"/>
     </nav>
-    <!--<header class="masthead2">-->
-    <!--<div class="container">-->
-    <!--<div class="intro-text">-->
-    <!--<div class="intro-lead-in">-->
-    <!--<h1 th:text="${event.name}"></h1>-->
-    <!--</div>-->
-    <!--<div class="w3-content w3-section " style="max-width:2000px">-->
-    <!--<img th:src="${event.imageUrl}" style="width:100%">-->
-    <!--</div>-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--</header>-->
 
     <header class="py-5">
         <div class="container">
@@ -34,7 +21,6 @@
                     <br><br>
                     <div class="w3-content w3-section " style="max-width:2000px">
                         <img th:src="${hotel.imageUrl}" style="width:100%">
-                        <h4 th:text="${hotel.date}"></h4>
                         <br><br>
                         <h5 th:text="${hotel.description}"></h5>
                         <br><br>
@@ -42,10 +28,20 @@
                         <h5 th:text="${hotel.price}"></h5>
                     </div>
                     <div >
-                        Tickets:<br>
-                        <input type="number" class="round-corners justify-content-center" name="countOfTickets"
-                               placeholder="Count of tickets..."><br><br>
-                        <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Buy</button>
+                        Enter the rooms you want!<br>
+                        Single rooms:<br>
+                        <input type="number" class="round-corners" name="singleRoom"
+                               placeholder="Count of single rooms..."><br><br>
+                        Double rooms:<br>
+                        <input type="number" class="round-corners" name="doubleRoom"
+                               placeholder="Count of double rooms..."><br><br>
+                        Room for three:<br>
+                        <input type="number" class="round-corners" name="roomForThree"
+                               placeholder="Count of rooms for three..."><br><br>
+                        Room for four:<br>
+                        <input type="number" class="round-corners" name="roomForFour"
+                               placeholder="Count of rooms for four..."><br><br>
+                        <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Reserve</button>
                     </div>
                 </form>
             </div>
@@ -81,22 +77,6 @@
         </div>
     </section>
 
-    <!-- Clients -->
-
-    <!--<script type="text/javascript" th:inline="javascript" th:src="@{/static/vendor/jquery/jquery.min.js}"></script>-->
-    <!--<script type="text/javascript" th:inline="javascript"-->
-    <!--th:src="@{static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>-->
-
-    <!--&lt;!&ndash; Plugin JavaScript &ndash;&gt;-->
-    <!--<script type="text/javascript" th:inline="javascript"-->
-    <!--th:src="@{static/vendor/jquery-easing/jquery.easing.min.js}"></script>-->
-
-    <!--&lt;!&ndash; Contact form JavaScript &ndash;&gt;-->
-    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/jqBootstrapValidation.js}"></script>-->
-    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/contact_me.js}"></script>-->
-
-    <!--&lt;!&ndash; Custom scripts for this template &ndash;&gt;-->
-    <!--<script type="text/javascript" th:inline="javascript" th:src="@{static/js/agency.min.js}"></script>-->
 
     <footer class="footer">
         <th:block th:include="~{fragments/footer}"/>

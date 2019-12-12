@@ -1,19 +1,21 @@
 package com.example.megaevents.web.controllers;
 
+import com.example.megaevents.data.models.Hotel;
 import com.example.megaevents.services.models.EventServiceModel;
 import com.example.megaevents.services.models.HotelServiceModel;
 import com.example.megaevents.services.services.CloudinaryService;
 import com.example.megaevents.services.services.EventService;
 import com.example.megaevents.services.services.HotelService;
 import com.example.megaevents.web.controllers.base.BaseController;
-import com.example.megaevents.web.models.CreateHotelModel;
-import com.example.megaevents.web.models.EventForHotelModel;
+import com.example.megaevents.web.models.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -74,5 +76,38 @@ public class HotelController extends BaseController {
         List<HotelServiceModel> hotels=this.hotelService.getHotelsByEvent(eventName);
         modelAndView.addObject("hotels",hotels);
         return super.view("all-hotels",modelAndView);
+    }
+
+
+    @GetMapping("/hotels/details/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView detailsHotel(@PathVariable String id, ModelAndView modelAndView){
+        modelAndView.addObject("hotel", this.mapper.map(this.hotelService.findById(id), HotelDetailsModel.class));
+        return super.view("hotel-details", modelAndView);
+
+    }
+
+    @PostMapping("/hotels/details/{id}")
+    public String reserveTicket(Authentication principal, @PathVariable String id, HotelDetailsModel hotelDetailsModel) throws Exception {
+        String username=principal.getName();
+        Integer singleroom=hotelDetailsModel.getSingleRoom();
+        Integer doubleroom=hotelDetailsModel.getDoubleRoom();
+        Integer roomForThree=hotelDetailsModel.getRoomForThree();
+        Integer roomForFour=hotelDetailsModel.getRoomForFour();
+        hotelService.reserve(username,id,singleroom,doubleroom,roomForThree,roomForFour);
+        return "redirect:/home";
+    }
+
+    @GetMapping("/hotels-admin")
+    public ModelAndView allEventsAdmin(ModelAndView modelAndView){
+        List<HotelServiceModel> hotels=this.hotelService.findAll();
+        modelAndView.addObject("hotels",hotels);
+        return super.view("all-hotels-admin",modelAndView);
+    }
+
+    @PostMapping("/hotel/delete/{id}")
+    public ModelAndView deleteHotel(@PathVariable String id){
+        this.hotelService.deleteHotel(id);
+        return super.redirect("/hotels-admin");
     }
 }

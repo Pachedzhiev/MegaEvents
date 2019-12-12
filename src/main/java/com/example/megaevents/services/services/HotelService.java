@@ -16,4 +16,10 @@ public interface HotelService {
     void addHotel(String name, String hotelName) throws Exception;
 
     List<HotelServiceModel> getHotelsByEvent(String eventName) throws Exception;
+
+    HotelServiceModel findById(String id);
+
+    void reserve(String username, String id, Integer singleroom, Integer doubleroom, Integer roomForThree, Integer roomForFour) throws Exception;
+
+    void deleteHotel(String id);
 }
