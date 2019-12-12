@@ -72,6 +72,12 @@ public class HotelServiceImpl implements HotelService {
         Integer price=hotel.getPrice();
         Integer count=singleroom+singleroom*2+roomForThree*3+roomForFour*4;
 
+        hotel.setSingleRoom(hotel.getSingleRoom()-singleroom);
+        hotel.setDoubleRoom(hotel.getDoubleRoom()-doubleroom);
+        hotel.setRoomForThree(hotel.getRoomForThree()-roomForThree);
+        hotel.setRoomForFour(hotel.getRoomForFour()-roomForFour);
+
+        hotelRepository.saveAndFlush(hotel);
 
 
         Ticket ticket= new Ticket();
@@ -85,6 +91,12 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public void deleteHotel(String id) {
         Hotel hotel=this.hotelRepository.getById(id);
+        List<Event> events= this.eventRepository.findByHotelName(hotel.getName());
+
+        for (int i = 0; i <events.size() ; i++) {
+            events.get(i).getHotels().remove(hotel);
+        }
+
         this.hotelRepository.delete(hotel);
     }
 
