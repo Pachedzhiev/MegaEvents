@@ -85,6 +85,10 @@ public class HotelServiceImpl implements HotelService {
         ticket.setHotel(hotel);
         ticket.setUser(user.getUserProfile());
         ticket.setPrice(count*price);
+        ticket.setSingleRoom(singleroom);
+        ticket.setDoubleRoom(doubleroom);
+        ticket.setRoomForThree(roomForThree);
+        ticket.setRoomForFour(roomForFour);
         this.ticketRepository.save(ticket);
     }
 

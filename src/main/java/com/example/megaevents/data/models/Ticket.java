@@ -30,4 +30,16 @@ public class Ticket extends BaseEntity {
 
     @Column(name="price")
     private Integer price;
+
+    @Column(name="singleRoom")
+    private Integer singleRoom;
+
+    @Column(name="doubleRoom")
+    private Integer doubleRoom;
+
+    @Column(name="roomForThree")
+    private Integer roomForThree;
+
+    @Column(name="roomForFour")
+    private Integer roomForFour;
 }

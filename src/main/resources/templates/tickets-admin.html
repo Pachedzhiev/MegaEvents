@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/guest-head}"/>
+</head>
+<body id="page-top">
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <th:block th:include="~{fragments/user-navbar}"/>
+    </nav>
+    <header class="masthead">
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Welcome To MEGA EVENTS!</div>
+                <div class="intro-heading text-uppercase">It's Nice To Meet You!</div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-4 d-flex justify-content-around">
+                <table data-vertable="ver2" class="table table-striped">
+                    <h3 style="text-align: center;"> Event Tickets </h3>
+                    <thead>
+                    <tr class="row100 head">
+                        <th class="column100 column1" data-column="column1"></th>
+                        <th class="column100 column2" data-column="column2">Event</th>
+                        <th class="column100 column3" data-column="column3">Count</th>
+                        <th class="column100 column2" data-column="column2">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="row100" th:each="ticket,iStat : ${ticketse}">
+                        <td class="column100 column1" style="color: black"   th:text="${iStat.index+1}"></td>
+                        <td class="column100 column2" th:text="${ticket.getEvent().getName()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getCount()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getPrice()}"></td>
+                    </tr>
+                    </tbody>
+                </table >
+                <br>
+                <br>
+                <table data-vertable="ver2" class="table table-striped">
+                    <h3 style="text-align: center;"> Hotel Tickets </h3>
+                    <thead>
+                    <tr class="row100 head">
+                        <th class="column100 column1" data-column="column1"></th>
+                        <th class="column100 column2" data-column="column2">Hotel</th>
+                        <th class="column100 column3" data-column="column3">Count</th>
+                        <th class="column100 column2" data-column="column2">Price</th>
+                        <th class="column100 column2" data-column="column2">Single rooms</th>
+                        <th class="column100 column2" data-column="column2">Dobule rooms</th>
+                        <th class="column100 column2" data-column="column2">Room for three</th>
+                        <th class="column100 column2" data-column="column2">Room for four</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="row100" th:each="ticket,iStat : ${ticketsh}">
+                        <td class="column100 column1" style="color: black"   th:text="${iStat.index+1}"></td>
+                        <td class="column100 column2" th:text="${ticket.getHotel().getName()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getCount()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getPrice()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getSingleRoom()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getDoubleRoom()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getRoomForThree()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getRoomForFour()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.jackdaniels.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/jackdaniels.png}" alt="Logo">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.greygoose.com">
+                        <img class="img-fluid d-block mx-auto pic-small"  th:src="@{/img/logos/grey.jpg}" alt="Logos">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.glenfiddich.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/glen.jpg}" alt="Logoa">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a th:href="www.finlandia.com">
+                        <img class="img-fluid d-block mx-auto pic-small" th:src="@{/img/logos/fin.jpg}" alt="Logod">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <th:block th:include="~{fragments/footer}"/>
+    </footer>
+</div>
+</body>
+</html>
