@@ -5,6 +5,8 @@ import com.example.megaevents.data.repositories.EventRepository;
 import com.example.megaevents.data.repositories.HotelRepository;
 import com.example.megaevents.data.repositories.TicketRepository;
 import com.example.megaevents.data.repositories.UserRepository;
+import com.example.megaevents.errors.EventNotFoundException;
+import com.example.megaevents.errors.HotelNotFoundException;
 import com.example.megaevents.services.models.HotelServiceModel;
 import com.example.megaevents.services.services.HotelService;
 import org.modelmapper.ModelMapper;
@@ -45,7 +47,7 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public void addHotel(String name, String hotelName) throws Exception {
         Event event=this.eventRepository.findByName(name).orElseThrow(() -> new Exception("Event not found"));
-        Hotel hotel=this.hotelRepository.findByName(hotelName).orElseThrow(() -> new Exception("Hotel not found"));
+        Hotel hotel=this.hotelRepository.findByName(hotelName).orElseThrow(()->new HotelNotFoundException("No such Hotel"));
 
         event.getHotels().add(hotel);
 
@@ -62,13 +64,14 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public HotelServiceModel findById(String id) {
-        return this.modelMapper.map(hotelRepository.getById(id), HotelServiceModel.class);
+        Hotel hotel=this.hotelRepository.getById(id).orElseThrow(()->new HotelNotFoundException("No such Hotel"));
+        return this.modelMapper.map(hotel, HotelServiceModel.class);
     }
 
     @Override
     public void reserve(String username, String id, Integer singleroom, Integer doubleroom, Integer roomForThree, Integer roomForFour) throws Exception {
         User user=this.userRepository.findUserByUsername(username).orElseThrow(() -> new Exception("User not found"));
-        Hotel hotel=this.hotelRepository.getById(id);
+        Hotel hotel=this.hotelRepository.getById(id).orElseThrow(()->new HotelNotFoundException("No such Hotel"));
         Integer price=hotel.getPrice();
         Integer count=singleroom+singleroom*2+roomForThree*3+roomForFour*4;
 
@@ -93,8 +96,8 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public void deleteHotel(String id) {
-        Hotel hotel=this.hotelRepository.getById(id);
+    public void deleteHotel(String id) throws Exception {
+        Hotel hotel=this.hotelRepository.getById(id).orElseThrow(()->new HotelNotFoundException("No such Hotel"));
         List<Event> events= this.eventRepository.findByHotelName(hotel.getName());
 
         for (int i = 0; i <events.size() ; i++) {

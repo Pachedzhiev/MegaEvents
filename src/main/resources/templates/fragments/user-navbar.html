@@ -22,6 +22,17 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
                 </li>
+                <th:block sec:authorize="hasRole('ADMIN')">
+                    <li class="nav-item active">
+                        <a class="nav-link js-scroll-trigger" href="/events-admin">All Events</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link js-scroll-trigger" href="/hotels-admin">All Hotels</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link js-scroll-trigger" href="/tickets-admin">All Tickets</a>
+                    </li>
+                </th:block>
             </ul>
         </div>
     </div>

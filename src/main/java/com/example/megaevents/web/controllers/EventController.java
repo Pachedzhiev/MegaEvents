@@ -1,5 +1,6 @@
 package com.example.megaevents.web.controllers;
 
+import com.example.megaevents.errors.EventNotFoundException;
 import com.example.megaevents.services.models.EventServiceModel;
 import com.example.megaevents.services.models.HotelServiceModel;
 import com.example.megaevents.services.services.CloudinaryService;
@@ -10,16 +11,15 @@ import com.example.megaevents.web.models.CreateEventModel;
 import com.example.megaevents.web.models.EventAddHotelModel;
 import com.example.megaevents.web.models.EventDetailsModel;
 import com.example.megaevents.web.models.EventTicketModel;
+import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,11 +42,13 @@ public class EventController extends BaseController {
 
 
     @GetMapping("/event/create")
+    @PreAuthorize("isAuthenticated()")
     public String create(){
         return "create-event";
     }
 
     @PostMapping("/event/create")
+    @PreAuthorize("hasRole('ADMIN')")
     public String createConfirm(@ModelAttribute CreateEventModel model) throws IOException {
         EventServiceModel event=this.mapper.map(model,EventServiceModel.class);
         event.setImageUrl(cloudinaryService.upload(model.getImage()));
@@ -65,7 +67,7 @@ public class EventController extends BaseController {
     }
 
     @GetMapping("/events-admin")
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView allEventsAdmin(ModelAndView modelAndView){
         List<EventServiceModel> events=this.eventService.findAll();
         List<HotelServiceModel> hotels=this.hotelService.findAll();
@@ -75,7 +77,7 @@ public class EventController extends BaseController {
     }
 
     @PostMapping("/event/addhotel/{id}")
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView eventAddHotel(@PathVariable String id, EventAddHotelModel eventAddHotelModel) throws Exception {
         EventDetailsModel event=this.mapper.map(this.eventService.findById(id), EventDetailsModel.class);
         String hotelName=eventAddHotelModel.getHotelName();
@@ -84,6 +86,7 @@ public class EventController extends BaseController {
     }
 
     @PostMapping("/event/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView deleteEvent(@PathVariable String id){
         this.eventService.deleteEvent(id);
         return super.redirect("/events-admin");
@@ -100,11 +103,19 @@ public class EventController extends BaseController {
     }
 
     @PostMapping("/events/details/{id}")
+    @PreAuthorize("isAuthenticated()")
     public String reserveTicket(Authentication principal, @PathVariable String id, EventTicketModel eventTicketModel) throws Exception {
         String username=principal.getName();
          Integer countOfTickets=eventTicketModel.getCountOfTickets();
         eventService.reserve(username,id,countOfTickets);
         return "redirect:/home";
+    }
+
+    @ExceptionHandler(EventNotFoundException.class)
+    public ModelAndView handleException(EventNotFoundException exception){
+        ModelAndView modelAndView=new ModelAndView("custom-error");
+        modelAndView.addObject("message",exception.getMessage());
+        return modelAndView;
     }
 
 

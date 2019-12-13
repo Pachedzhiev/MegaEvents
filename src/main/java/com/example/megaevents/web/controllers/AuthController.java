@@ -7,6 +7,7 @@ import com.example.megaevents.web.controllers.base.BaseController;
 import com.example.megaevents.web.models.RegisterUserModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,18 +27,21 @@ public class AuthController extends BaseController {
 
 
     @GetMapping("/register")
+    @PreAuthorize("isAnonymous()")
     public ModelAndView getRegisterForm() {
         return new ModelAndView("/auth/register");
     }
 
 
     @GetMapping("/login")
+    @PreAuthorize("isAnonymous()")
     public String getLoginPage() {
         return "/auth/login";
     }
 
 
     @PostMapping("/register")
+    @PreAuthorize("isAnonymous()")
     public ModelAndView registerConfirm(@ModelAttribute RegisterUserModel model) {
         ModelAndView modelAndView = new ModelAndView();
 

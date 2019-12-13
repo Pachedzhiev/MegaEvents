@@ -21,5 +21,5 @@ public interface HotelService {
 
     void reserve(String username, String id, Integer singleroom, Integer doubleroom, Integer roomForThree, Integer roomForFour) throws Exception;
 
-    void deleteHotel(String id);
+    void deleteHotel(String id) throws Exception;
 }

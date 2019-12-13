@@ -2,6 +2,7 @@ package com.example.megaevents.services.services.implementations;
 
 import com.example.megaevents.data.models.*;
 import com.example.megaevents.data.repositories.*;
+import com.example.megaevents.errors.EventNotFoundException;
 import com.example.megaevents.services.models.EventServiceModel;
 import com.example.megaevents.services.services.EventService;
 import org.modelmapper.ModelMapper;
@@ -33,7 +34,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventServiceModel findEventByName(String name){
-        return this.eventRepository.findByName(name).map(e->modelMapper.map(e,EventServiceModel.class)).orElseThrow(null);
+        return this.eventRepository.findByName(name).map(e->modelMapper.map(e,EventServiceModel.class)).orElseThrow(()->new EventNotFoundException("No such Event"));
     }
 
     @Override
@@ -43,13 +44,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventServiceModel findById(String id) {
-        return this.modelMapper.map(eventRepository.getById(id),EventServiceModel.class);
+        Event event=this.eventRepository.getById(id).orElseThrow(()->new EventNotFoundException("No such Event"));
+        return this.modelMapper.map(event,EventServiceModel.class);
     }
 
     @Override
     public void reserve(String username, String id, Integer count) throws Exception {
         User user=this.userRepository.findUserByUsername(username).orElseThrow(() -> new Exception("User not found"));
-        Event event=this.eventRepository.getById(id);
+        Event event=this.eventRepository.getById(id).orElseThrow(()->new EventNotFoundException("No such Event"));
 
 
 
@@ -73,7 +75,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void deleteEvent(String id) {
-        Event event=this.eventRepository.getById(id);
+        Event event=this.eventRepository.getById(id).orElseThrow(()->new EventNotFoundException("No such Event"));;
         this.eventRepository.delete(event);
     }
 

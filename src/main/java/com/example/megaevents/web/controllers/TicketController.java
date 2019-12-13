@@ -45,7 +45,7 @@ public class TicketController extends BaseController {
     }
 
     @GetMapping("/tickets-admin")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView adminTickets(ModelAndView modelAndView){
 
         List<TicketServiceModel> ticketsh=this.ticketService.findTicketsHotelsAll();
