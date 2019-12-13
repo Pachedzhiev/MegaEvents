@@ -39,13 +39,13 @@ public class HotelController extends BaseController {
 
 
     @GetMapping("/hotel/create")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String create(){
         return "add-hotel";
     }
 
     @PostMapping("/hotel/create")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String createConfirm(@ModelAttribute CreateHotelModel model) throws IOException {
         HotelServiceModel hotel = this.mapper.map(model, HotelServiceModel.class);
         hotel.setImageUrl(cloudinaryService.upload(model.getImage()));
@@ -102,7 +102,7 @@ public class HotelController extends BaseController {
     }
 
     @GetMapping("/hotels-admin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView allEventsAdmin(ModelAndView modelAndView){
         List<HotelServiceModel> hotels=this.hotelService.findAll();
         modelAndView.addObject("hotels",hotels);
@@ -110,7 +110,7 @@ public class HotelController extends BaseController {
     }
 
     @PostMapping("/hotel/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView deleteHotel(@PathVariable String id) throws Exception {
         this.hotelService.deleteHotel(id);
         return super.redirect("/hotels-admin");

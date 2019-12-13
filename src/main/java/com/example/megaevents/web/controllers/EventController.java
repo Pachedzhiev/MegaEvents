@@ -48,7 +48,7 @@ public class EventController extends BaseController {
     }
 
     @PostMapping("/event/create")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String createConfirm(@ModelAttribute CreateEventModel model) throws IOException {
         EventServiceModel event=this.mapper.map(model,EventServiceModel.class);
         event.setImageUrl(cloudinaryService.upload(model.getImage()));
@@ -67,7 +67,7 @@ public class EventController extends BaseController {
     }
 
     @GetMapping("/events-admin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView allEventsAdmin(ModelAndView modelAndView){
         List<EventServiceModel> events=this.eventService.findAll();
         List<HotelServiceModel> hotels=this.hotelService.findAll();
@@ -77,7 +77,7 @@ public class EventController extends BaseController {
     }
 
     @PostMapping("/event/addhotel/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView eventAddHotel(@PathVariable String id, EventAddHotelModel eventAddHotelModel) throws Exception {
         EventDetailsModel event=this.mapper.map(this.eventService.findById(id), EventDetailsModel.class);
         String hotelName=eventAddHotelModel.getHotelName();
@@ -86,7 +86,7 @@ public class EventController extends BaseController {
     }
 
     @PostMapping("/event/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView deleteEvent(@PathVariable String id){
         this.eventService.deleteEvent(id);
         return super.redirect("/events-admin");
