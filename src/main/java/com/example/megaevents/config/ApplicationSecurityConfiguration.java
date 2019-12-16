@@ -19,6 +19,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .authorizeRequests()
                 .antMatchers("/js/**", "/css/**","/img/**","/bootstrap/**","/fontawesome-free/**","/jquery/**","/jquery-easing/**","/vendor/**").permitAll()
                 .antMatchers("/", "/register", "/login").anonymous()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

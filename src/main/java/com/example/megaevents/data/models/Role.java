@@ -17,7 +17,7 @@ public class Role extends BaseEntity implements GrantedAuthority {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", targetEntity = User.class)
     private Set<User> users;
 
     @Transient

@@ -1,7 +1,7 @@
-<th:block th:fragment xmlns:th="http://www.w3.org/1999/xhtml">
+<th:block th:fragment xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
     <th:block sec:authorize="isAuthenticated()">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="/">MEGA EVENTS</a>
+            <a class="navbar-brand js-scroll-trigger" href="/home">MEGA EVENTS</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                     data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -12,6 +12,7 @@
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <th:block sec:authorize="hasAuthority('ADMIN')" >
                         <li class="nav-item active">
+
                             <a class="nav-link js-scroll-trigger" href="/events-admin">All Events</a>
                         </li>
                         <li class="nav-item active">
@@ -25,13 +26,13 @@
                         <a class="nav-link js-scroll-trigger" href="/events">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/hotel/chooseevent/">Hotels</a>
+                        <a class="nav-link js-scroll-trigger" href="/hotel/chooseevent">Hotels</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="/tickets">Tickets</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                        <a class="nav-link js-scroll-trigger" href="/about-us">About us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>

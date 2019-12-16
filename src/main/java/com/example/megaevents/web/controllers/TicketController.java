@@ -4,6 +4,7 @@ import com.example.megaevents.services.models.HotelServiceModel;
 import com.example.megaevents.services.models.TicketServiceModel;
 import com.example.megaevents.services.services.CloudinaryService;
 import com.example.megaevents.services.services.TicketService;
+import com.example.megaevents.web.annotations.PageTitle;
 import com.example.megaevents.web.controllers.base.BaseController;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,19 @@ public class TicketController extends BaseController {
 
     private final ModelMapper mapper;
     private final TicketService ticketService;
-    private final CloudinaryService cloudinaryService;
 
     @Autowired
-    public TicketController(ModelMapper mapper, TicketService ticketService, CloudinaryService cloudinaryService) {
+    public TicketController(ModelMapper mapper, TicketService ticketService) {
         this.mapper = mapper;
         this.ticketService = ticketService;
-        this.cloudinaryService = cloudinaryService;
     }
 
     @GetMapping("/tickets")
+    @PageTitle("Tickets")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView seetickets(Authentication principal, ModelAndView modelAndView){
         String username=principal.getName();
+        principal.getAuthorities();
 
         List<TicketServiceModel> ticketsh=this.ticketService.findTicketsHotels(username);
 
@@ -45,6 +46,7 @@ public class TicketController extends BaseController {
     }
 
     @GetMapping("/tickets-admin")
+    @PageTitle("Admin tickets")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView adminTickets(ModelAndView modelAndView){
 

@@ -6,6 +6,7 @@ import com.example.megaevents.services.models.HotelServiceModel;
 import com.example.megaevents.services.services.CloudinaryService;
 import com.example.megaevents.services.services.EventService;
 import com.example.megaevents.services.services.HotelService;
+import com.example.megaevents.web.annotations.PageTitle;
 import com.example.megaevents.web.controllers.base.BaseController;
 import com.example.megaevents.web.models.CreateEventModel;
 import com.example.megaevents.web.models.EventAddHotelModel;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -42,6 +44,7 @@ public class EventController extends BaseController {
 
 
     @GetMapping("/event/create")
+    @PageTitle("Create Event")
     @PreAuthorize("isAuthenticated()")
     public String create(){
         return "create-event";
@@ -58,6 +61,7 @@ public class EventController extends BaseController {
     }
 
     @GetMapping("/events")
+    @PageTitle("Events")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView allEvents(ModelAndView modelAndView){
         List<EventServiceModel> events=this.eventService.findAll();
@@ -67,6 +71,7 @@ public class EventController extends BaseController {
     }
 
     @GetMapping("/events-admin")
+    @PageTitle("Admin events")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView allEventsAdmin(ModelAndView modelAndView){
         List<EventServiceModel> events=this.eventService.findAll();
@@ -95,6 +100,7 @@ public class EventController extends BaseController {
 
 
     @GetMapping("/events/details/{id}")
+    @PageTitle("Event Details")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView detailsEvent(@PathVariable String id,ModelAndView modelAndView){
         modelAndView.addObject("event", this.mapper.map(this.eventService.findById(id), EventDetailsModel.class));
@@ -106,6 +112,7 @@ public class EventController extends BaseController {
     @PreAuthorize("isAuthenticated()")
     public String reserveTicket(Authentication principal, @PathVariable String id, EventTicketModel eventTicketModel) throws Exception {
         String username=principal.getName();
+        System.out.println(principal.getAuthorities());
          Integer countOfTickets=eventTicketModel.getCountOfTickets();
         eventService.reserve(username,id,countOfTickets);
         return "redirect:/home";

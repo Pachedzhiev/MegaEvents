@@ -3,6 +3,7 @@ package com.example.megaevents.web.controllers;
 import com.example.megaevents.services.models.UserProfileServiceModel;
 import com.example.megaevents.services.models.UserServiceModel;
 import com.example.megaevents.services.services.AuthService;
+import com.example.megaevents.web.annotations.PageTitle;
 import com.example.megaevents.web.controllers.base.BaseController;
 import com.example.megaevents.web.models.RegisterUserModel;
 import org.modelmapper.ModelMapper;
@@ -28,12 +29,14 @@ public class AuthController extends BaseController {
 
     @GetMapping("/register")
     @PreAuthorize("isAnonymous()")
+    @PageTitle("Register")
     public ModelAndView getRegisterForm() {
         return new ModelAndView("/auth/register");
     }
 
 
     @GetMapping("/login")
+    @PageTitle("Title")
     @PreAuthorize("isAnonymous()")
     public String getLoginPage() {
         return "/auth/login";

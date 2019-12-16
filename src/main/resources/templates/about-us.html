@@ -12,8 +12,7 @@
     <header class="masthead">
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Welcome To MEGA EVENTS!</div>
-                <div class="intro-heading text-uppercase">It's Nice To Meet You!</div>
+                <div class="intro-lead-in">Welcome to MEGA EVENTS!</div>
             </div>
         </div>
     </header>
@@ -22,15 +21,15 @@
 
     <section class="py-5">
         <div class="container">
-            <div class="row mb-4 d-flex justify-content-around">
-                <div th:each="event,iStat: ${events}" class="col-md-3 d-flex flex-column text-center">
-                        <img th:src="${event.getImageUrl()}" class="img-thumbnail" width="300" height="300">
-                        <h5 class="text-center" th:text="${event.getName()}">  </h5>
-                        <h6 class="text-center" th:text="${event.getAddress()}">  </h6>
-                         <a th:href="@{/events/details/{id}(id=${event.id})}"
-                           class="btn btn-primary btn-primary text-uppercase js-scroll-trigger">Details</a>
+            <div class="intro-heading">
+                <div class="align-content-center">
+                <h2 class="justify-content-center">ABOUT US</h2>
                 </div>
+                <br><br>
+                <h5>Welcome to Events in Bulgaria! We do believe that events are the heartbeat of any place and this is why we created a site where we will be doing our best to list interesting events from all over the country and present their stories.
+                    Find really exciting options for having fun in different Bulgarian cities, with authentic experiences such as festivals, concerts, exhibitions and many other events in Bulgaria, during which you will become part of contemporary Bulgarian cultural life.</h5>
             </div>
+
 
         </div>
     </section>
@@ -61,7 +60,6 @@
             </div>
         </div>
     </section>
-
 
     <footer class="footer">
         <th:block th:include="~{fragments/footer}"/>

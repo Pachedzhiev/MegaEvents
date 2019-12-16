@@ -9,11 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name="users")
 public class User extends BaseEntity implements UserDetails {
@@ -30,7 +30,7 @@ public class User extends BaseEntity implements UserDetails {
     @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
 
-    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
@@ -44,9 +44,14 @@ public class User extends BaseEntity implements UserDetails {
     )
     private Set<Role> roles;
 
+
+    public User() {
+        this.roles = new HashSet<>();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.roles;
     }
 
     @Override

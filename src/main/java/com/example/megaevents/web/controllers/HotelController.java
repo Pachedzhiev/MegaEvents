@@ -7,6 +7,7 @@ import com.example.megaevents.services.models.HotelServiceModel;
 import com.example.megaevents.services.services.CloudinaryService;
 import com.example.megaevents.services.services.EventService;
 import com.example.megaevents.services.services.HotelService;
+import com.example.megaevents.web.annotations.PageTitle;
 import com.example.megaevents.web.controllers.base.BaseController;
 import com.example.megaevents.web.models.*;
 import org.modelmapper.ModelMapper;
@@ -40,6 +41,7 @@ public class HotelController extends BaseController {
 
     @GetMapping("/hotel/create")
     @PreAuthorize("hasAuthority('ADMIN')")
+    @PageTitle("Create hotel")
     public String create(){
         return "add-hotel";
     }
@@ -55,6 +57,7 @@ public class HotelController extends BaseController {
     }
 
     @GetMapping("/hotels")
+    @PageTitle("Hotels")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView allHotels(ModelAndView modelAndView){
         List<HotelServiceModel> hotels=this.hotelService.findAll();
@@ -64,6 +67,7 @@ public class HotelController extends BaseController {
     }
 
     @GetMapping("/hotel/chooseevent")
+    @PageTitle("Choose event")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView chooseev(ModelAndView modelAndView){
          List<EventServiceModel> events=this.eventService.findAll();
@@ -82,6 +86,7 @@ public class HotelController extends BaseController {
 
 
     @GetMapping("/hotels/details/{id}")
+    @PageTitle("Hotel details")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView detailsHotel(@PathVariable String id, ModelAndView modelAndView){
         modelAndView.addObject("hotel", this.mapper.map(this.hotelService.findById(id), HotelDetailsModel.class));
@@ -102,6 +107,7 @@ public class HotelController extends BaseController {
     }
 
     @GetMapping("/hotels-admin")
+    @PageTitle("Admin hotels")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ModelAndView allEventsAdmin(ModelAndView modelAndView){
         List<HotelServiceModel> hotels=this.hotelService.findAll();

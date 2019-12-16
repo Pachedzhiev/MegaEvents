@@ -16,6 +16,7 @@ public class DataBaseSeed {
     public DataBaseSeed(RoleRepository roleRepository) {
         RoleRepository = roleRepository;
     }
+
     @PostConstruct
     public void seed() {
         if (this.RoleRepository.findAll().isEmpty()) {
