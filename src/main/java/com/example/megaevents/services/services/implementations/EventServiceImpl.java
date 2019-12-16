@@ -74,15 +74,23 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteEvent(String id) {
+    public boolean deleteEvent(String id) {
+        if(id==null){
+            return false;
+        }
         Event event=this.eventRepository.getById(id).orElseThrow(()->new EventNotFoundException("No such Event"));;
         this.eventRepository.delete(event);
+        return true;
     }
 
 
     @Override
-    public void save(EventServiceModel eventServiceModel){
+    public boolean save(EventServiceModel eventServiceModel){
+        if(eventServiceModel==null) {
+            return false;
+        }
         this.eventRepository.save(this.modelMapper.map(eventServiceModel, Event.class));
+        return true;
     }
 }
 

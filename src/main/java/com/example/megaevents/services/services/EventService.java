@@ -8,7 +8,7 @@ import java.util.List;
 public interface EventService {
 
 
-    void save(EventServiceModel eventServiceModel);
+    boolean save(EventServiceModel eventServiceModel);
 
     EventServiceModel findEventByName(String name);
 
@@ -18,5 +18,5 @@ public interface EventService {
 
     void reserve(String username,String id,Integer count) throws Exception;
 
-    void deleteEvent(String id);
+    boolean deleteEvent(String id);
 }

@@ -38,14 +38,20 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void register(UserServiceModel user, UserProfileServiceModel userModel) {
-        user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
-        User u1=this.modelMapper.map(user,User.class);
-        u1.setRoles(getRolesForRegistration());
-        UserProfile u2=this.modelMapper.map(userModel,UserProfile.class);
-        u1.setUserProfile(u2);
-        this.userRepository.saveAndFlush(u1);
-        this.userProfileRepository.saveAndFlush(u2);
+    public boolean register(UserServiceModel user, UserProfileServiceModel userModel) {
+        if (user==null || userModel==null) {
+            return false;
+        }
+            user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+            User u1 = this.modelMapper.map(user, User.class);
+            u1.setRoles(getRolesForRegistration());
+            UserProfile u2 = this.modelMapper.map(userModel, UserProfile.class);
+            u1.setUserProfile(u2);
+            this.userRepository.saveAndFlush(u1);
+            this.userProfileRepository.saveAndFlush(u2);
+            return true;
+
+
     }
 
     private Set<Role> getRolesForRegistration() {

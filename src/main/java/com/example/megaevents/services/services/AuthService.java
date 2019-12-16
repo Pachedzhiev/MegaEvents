@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface AuthService extends UserDetailsService {
 
-    void register(UserServiceModel user, UserProfileServiceModel userModel);
+    boolean register(UserServiceModel user, UserProfileServiceModel userModel);
 
     UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
 

@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface HotelService {
 
-    void save(HotelServiceModel hotelServiceModel);
+    boolean save(HotelServiceModel hotelServiceModel);
 
-    HotelServiceModel findHotelByName(String name);
+    HotelServiceModel findHotelByName(String name) throws Exception;
 
     List<HotelServiceModel> findAll();
 
@@ -21,5 +21,5 @@ public interface HotelService {
 
     void reserve(String username, String id, Integer singleroom, Integer doubleroom, Integer roomForThree, Integer roomForFour) throws Exception;
 
-    void deleteHotel(String id) throws Exception;
+    boolean deleteHotel(String id) throws Exception;
 }

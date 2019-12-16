@@ -35,8 +35,8 @@ public class HotelServiceImpl implements HotelService {
 
 
     @Override
-    public HotelServiceModel findHotelByName(String name){
-        return this.hotelRepository.findByName(name).map(e->modelMapper.map(e,HotelServiceModel.class)).orElseThrow(null);
+    public HotelServiceModel findHotelByName(String name) throws Exception {
+        return this.hotelRepository.findByName(name).map(e->modelMapper.map(e,HotelServiceModel.class)).orElseThrow(()->new HotelNotFoundException("No such Hotel"));
     }
 
     @Override
@@ -96,7 +96,10 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public void deleteHotel(String id) throws Exception {
+    public boolean deleteHotel(String id) throws Exception {
+        if(id==null){
+            return false;
+        }
         Hotel hotel=this.hotelRepository.getById(id).orElseThrow(()->new HotelNotFoundException("No such Hotel"));
         List<Event> events= this.eventRepository.findByHotelName(hotel.getName());
 
@@ -105,11 +108,16 @@ public class HotelServiceImpl implements HotelService {
         }
 
         this.hotelRepository.delete(hotel);
+        return true;
     }
 
 
     @Override
-    public void save(HotelServiceModel HotelServiceModel){
-        this.hotelRepository.save(this.modelMapper.map(HotelServiceModel, Hotel.class));
+    public boolean save(HotelServiceModel hotelServiceModel){
+        if( hotelServiceModel==null){
+            return false;
+        }
+        this.hotelRepository.save(this.modelMapper.map(hotelServiceModel, Hotel.class));
+        return true;
     }
 }
