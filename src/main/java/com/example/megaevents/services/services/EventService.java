@@ -16,7 +16,7 @@ public interface EventService {
 
     EventServiceModel findById(String id);
 
-    void reserve(String username,String id,Integer count) throws Exception;
+    boolean reserve(String username,String id,Integer count) throws Exception;
 
     boolean deleteEvent(String id);
 }

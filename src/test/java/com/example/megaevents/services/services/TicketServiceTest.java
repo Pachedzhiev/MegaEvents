@@ -37,7 +37,7 @@ public class TicketServiceTest extends TestBase {
 
     @MockBean
     UserRepository userRepository;
-    
+
     @MockBean
     ModelMapper modelMapper;
 

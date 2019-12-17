@@ -13,13 +13,13 @@ public interface HotelService {
 
     List<HotelServiceModel> findAll();
 
-    void addHotel(String name, String hotelName) throws Exception;
+    boolean addHotel(String name, String hotelName) throws Exception;
 
     List<HotelServiceModel> getHotelsByEvent(String eventName) throws Exception;
 
     HotelServiceModel findById(String id);
 
-    void reserve(String username, String id, Integer singleroom, Integer doubleroom, Integer roomForThree, Integer roomForFour) throws Exception;
+    boolean reserve(String username, String id, Integer singleroom, Integer doubleroom, Integer roomForThree, Integer roomForFour) throws Exception;
 
     boolean deleteHotel(String id) throws Exception;
 }

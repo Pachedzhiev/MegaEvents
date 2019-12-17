@@ -49,7 +49,10 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void reserve(String username, String id, Integer count) throws Exception {
+    public boolean reserve(String username, String id, Integer count) throws Exception {
+        if(username==null||id==null||count==0){
+            return false;
+        }
         User user=this.userRepository.findUserByUsername(username).orElseThrow(() -> new Exception("User not found"));
         Event event=this.eventRepository.getById(id).orElseThrow(()->new EventNotFoundException("No such Event"));
 
@@ -68,8 +71,7 @@ public class EventServiceImpl implements EventService {
         ticket.setUser(userProfile);
         ticket.setPrice(event.getPrice()*count);
         this.ticketRepository.save(ticket);
-
-
+        return true;
 
     }
 

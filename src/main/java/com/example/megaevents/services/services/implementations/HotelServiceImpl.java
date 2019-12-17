@@ -45,8 +45,11 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public void addHotel(String name, String hotelName) throws Exception {
-        Event event=this.eventRepository.findByName(name).orElseThrow(() -> new Exception("Event not found"));
+    public boolean addHotel(String name, String hotelName) throws Exception {
+        if(name==null||hotelName==null){
+            return false;
+        }
+        Event event=this.eventRepository.findByName(name).orElseThrow(() -> new EventNotFoundException("Event not found"));
         Hotel hotel=this.hotelRepository.findByName(hotelName).orElseThrow(()->new HotelNotFoundException("No such Hotel"));
 
         event.getHotels().add(hotel);
@@ -54,6 +57,7 @@ public class HotelServiceImpl implements HotelService {
         hotel.getEvents().add(event);
 
         this.eventRepository.save(event);
+        return true;
     }
 
     @Override
@@ -69,7 +73,10 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public void reserve(String username, String id, Integer singleroom, Integer doubleroom, Integer roomForThree, Integer roomForFour) throws Exception {
+    public boolean reserve(String username, String id, Integer singleroom, Integer doubleroom, Integer roomForThree, Integer roomForFour) throws Exception {
+        if(username==null || id==null){
+            return false;
+        }
         User user=this.userRepository.findUserByUsername(username).orElseThrow(() -> new Exception("User not found"));
         Hotel hotel=this.hotelRepository.getById(id).orElseThrow(()->new HotelNotFoundException("No such Hotel"));
         Integer price=hotel.getPrice();
@@ -93,6 +100,7 @@ public class HotelServiceImpl implements HotelService {
         ticket.setRoomForThree(roomForThree);
         ticket.setRoomForFour(roomForFour);
         this.ticketRepository.save(ticket);
+        return true;
     }
 
     @Override
