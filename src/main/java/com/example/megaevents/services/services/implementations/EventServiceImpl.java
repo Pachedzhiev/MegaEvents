@@ -20,15 +20,17 @@ public class EventServiceImpl implements EventService {
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
     private final UserProfileRepository userProfileRepository;
+    private final HotelRepository hotelRepository;
 
 
     @Autowired
-    public EventServiceImpl(EventRepository eventRepository, ModelMapper modelMapper, UserRepository userRepository, TicketRepository ticketRepository, UserProfileRepository userProfileRepository) {
+    public EventServiceImpl(EventRepository eventRepository, ModelMapper modelMapper, UserRepository userRepository, TicketRepository ticketRepository, UserProfileRepository userProfileRepository, HotelRepository hotelRepository) {
         this.eventRepository = eventRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.ticketRepository = ticketRepository;
         this.userProfileRepository = userProfileRepository;
+        this.hotelRepository = hotelRepository;
     }
 
 
@@ -80,7 +82,20 @@ public class EventServiceImpl implements EventService {
         if(id==null){
             return false;
         }
-        Event event=this.eventRepository.getById(id).orElseThrow(()->new EventNotFoundException("No such Event"));;
+        Event event=this.eventRepository.getById(id).orElseThrow(()->new EventNotFoundException("No such Event"));
+        List<Hotel> hotels=this.hotelRepository.findByEventName(event.getName());
+        List<UserProfile> users=this.userProfileRepository.findByEventName(event.getName());
+
+        for (int i = 0; i <hotels.size() ; i++) {
+            hotels.get(i).getEvents().remove(event);
+        }
+
+        for (int i = 0; i <users.size() ; i++) {
+            users.get(i).getEvents().remove(event);
+        }
+
+
+
         this.eventRepository.delete(event);
         return true;
     }

@@ -6,6 +6,7 @@ import com.example.megaevents.data.models.UserProfile;
 import com.example.megaevents.data.repositories.RoleRepository;
 import com.example.megaevents.data.repositories.UserProfileRepository;
 import com.example.megaevents.data.repositories.UserRepository;
+import com.example.megaevents.errors.UserTakenEcxeption;
 import com.example.megaevents.services.models.UserProfileServiceModel;
 import com.example.megaevents.services.models.UserServiceModel;
 import com.example.megaevents.services.services.AuthService;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.example.megaevents.constants.ConstantError.ERROR_USERNAME_TAKEN;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -41,6 +44,11 @@ public class AuthServiceImpl implements AuthService {
     public boolean register(UserServiceModel user, UserProfileServiceModel userModel) {
         if (user==null || userModel==null) {
             return false;
+        }
+        for (int i = 0; i <this.userRepository.findAll().size() ; i++) {
+            if(this.userRepository.findAll().get(i).getUsername().equals(userModel.getFullName())){
+                throw new UserTakenEcxeption(ERROR_USERNAME_TAKEN);
+            }
         }
             user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
             User u1 = this.modelMapper.map(user, User.class);

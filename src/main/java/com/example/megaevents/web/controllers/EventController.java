@@ -112,7 +112,6 @@ public class EventController extends BaseController {
     @PreAuthorize("isAuthenticated()")
     public String reserveTicket(Authentication principal, @PathVariable String id, EventTicketModel eventTicketModel) throws Exception {
         String username=principal.getName();
-        System.out.println(principal.getAuthorities());
          Integer countOfTickets=eventTicketModel.getCountOfTickets();
         eventService.reserve(username,id,countOfTickets);
         return "redirect:/home";

@@ -4,9 +4,13 @@ import com.example.megaevents.data.models.base.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.List;
+
+import static com.example.megaevents.constants.ConstantError.ERROR_ADDRESS;
+import static com.example.megaevents.constants.ConstantError.ERROR_DESCRIPTION;
 
 @Getter
 @Setter
@@ -18,6 +22,7 @@ public class Event extends BaseEntity {
     private String name;
 
     @Column(name="address")
+    @Length(min = 6,message = ERROR_ADDRESS)
     private String address;
 
     @ManyToMany
@@ -31,6 +36,7 @@ public class Event extends BaseEntity {
     private List<UserProfile> users;
 
     @Column(name="description",nullable = false)
+    @Length(min = 10,message = ERROR_DESCRIPTION)
     private String description;
 
     @Column(name="image")

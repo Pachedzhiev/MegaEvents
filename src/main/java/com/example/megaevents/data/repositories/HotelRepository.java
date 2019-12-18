@@ -19,6 +19,9 @@ public interface HotelRepository extends JpaRepository<Hotel,String> {
             "where e.name in :name")
     List<Hotel> findAllByEvents(String name);
 
+    @Query("select h from Hotel h inner join h.events e where e.name in :name")
+    List<Hotel> findByEventName(String name);
+
 
     Optional<Hotel> getById(String id);
 }

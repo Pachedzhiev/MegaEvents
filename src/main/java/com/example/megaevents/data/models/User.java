@@ -4,6 +4,7 @@ import com.example.megaevents.data.models.base.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,18 +13,23 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.example.megaevents.constants.ConstantError.*;
+
 @Getter
 @Setter
 @Entity
 @Table(name="users")
 public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false, unique = true)
+    @Length(min=4, max=20, message = ERROR_USERNAME)
     private String username;
 
     @Column(nullable = false)
+    @Length(min=8,message = ERROR_PASSWORD)
     private String password;
 
     @Column(nullable = false,unique = true)
+    @Length(min=5,message = ERROR_EMAIL)
     private String email;
 
     @OneToOne(cascade=CascadeType.ALL )

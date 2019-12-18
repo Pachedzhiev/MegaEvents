@@ -6,6 +6,7 @@ import com.example.megaevents.data.repositories.HotelRepository;
 import com.example.megaevents.data.repositories.TicketRepository;
 import com.example.megaevents.data.repositories.UserRepository;
 import com.example.megaevents.errors.EventNotFoundException;
+import com.example.megaevents.errors.HotelNoRoomsException;
 import com.example.megaevents.errors.HotelNotFoundException;
 import com.example.megaevents.services.models.HotelServiceModel;
 import com.example.megaevents.services.services.HotelService;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.example.megaevents.constants.ConstantError.ERROR_HOTEL_NO_ROOM;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -80,8 +83,11 @@ public class HotelServiceImpl implements HotelService {
         User user=this.userRepository.findUserByUsername(username).orElseThrow(() -> new Exception("User not found"));
         Hotel hotel=this.hotelRepository.getById(id).orElseThrow(()->new HotelNotFoundException("No such Hotel"));
         Integer price=hotel.getPrice();
-        Integer count=singleroom+singleroom*2+roomForThree*3+roomForFour*4;
+        Integer count=singleroom+doubleroom*2+roomForThree*3+roomForFour*4;
 
+        if(hotel.getSingleRoom()-singleroom<0||hotel.getDoubleRoom()-doubleroom<0||hotel.getRoomForThree()-roomForThree<0||hotel.getRoomForFour()-roomForFour<0){
+            throw new HotelNoRoomsException(ERROR_HOTEL_NO_ROOM);
+        }
         hotel.setSingleRoom(hotel.getSingleRoom()-singleroom);
         hotel.setDoubleRoom(hotel.getDoubleRoom()-doubleroom);
         hotel.setRoomForThree(hotel.getRoomForThree()-roomForThree);

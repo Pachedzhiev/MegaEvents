@@ -33,7 +33,6 @@ public class TicketController extends BaseController {
     @PreAuthorize("isAuthenticated()")
     public ModelAndView seetickets(Authentication principal, ModelAndView modelAndView){
         String username=principal.getName();
-        principal.getAuthorities();
 
         List<TicketServiceModel> ticketsh=this.ticketService.findTicketsHotels(username);
 

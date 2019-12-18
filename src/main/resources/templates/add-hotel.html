@@ -25,19 +25,19 @@
                             <input type="text" class="round-corners input-large" name="description"
                                    placeholder="Hotel's description..."><br><br>
                             Single rooms:<br>
-                            <input type="number" class="round-corners" name="singleRoom"
+                            <input type="number" min="0" th:value="0" class="round-corners" name="singleRoom"
                                    placeholder="Count of single rooms..."><br><br>
                             Double rooms:<br>
-                            <input type="number" class="round-corners" name="doubleRoom"
+                            <input type="number" min="0"  th:value="0" class="round-corners" name="doubleRoom"
                                    placeholder="Count of double rooms..."><br><br>
                             Room for three:<br>
-                            <input type="number" class="round-corners" name="roomForThree"
+                            <input type="number"  min="0"  th:value="0" class="round-corners" name="roomForThree"
                                    placeholder="Count of rooms for three..."><br><br>
                             Room for four:<br>
-                            <input type="number" class="round-corners" name="roomForFour"
+                            <input type="number" min="0"  th:value="0" class="round-corners" name="roomForFour"
                                    placeholder="Count of rooms for four..."><br><br>
                             Price per guest:<br>
-                            <input type="number" class="round-corners" name="price"
+                            <input type="number" min="0" th:value="0" class="round-corners" name="price"
                                    placeholder="Price per guest..."><br><br>
                             Photo:<br>
                             <input type="file" class="round-corners" name="image" placeholder="Hotel's photo..."><br><br><br>

@@ -31,6 +31,7 @@
                         <th class="column100 column2" data-column="column2">Event</th>
                         <th class="column100 column3" data-column="column3">Count</th>
                         <th class="column100 column2" data-column="column2">Price</th>
+                        <th class="column100 column2" data-column="column2">User</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,6 +40,7 @@
                         <td class="column100 column2" th:text="${ticket.getEvent().getName()}"></td>
                         <td class="column100 column2" th:text="${ticket.getCount()}"></td>
                         <td class="column100 column2" th:text="${ticket.getPrice()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getUser().getUsername()}"></td>
                     </tr>
                     </tbody>
                 </table >
@@ -56,6 +58,7 @@
                         <th class="column100 column2" data-column="column2">Dobule rooms</th>
                         <th class="column100 column2" data-column="column2">Room for three</th>
                         <th class="column100 column2" data-column="column2">Room for four</th>
+                        <th class="column100 column2" data-column="column2">User</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,6 +71,7 @@
                         <td class="column100 column2" th:text="${ticket.getDoubleRoom()}"></td>
                         <td class="column100 column2" th:text="${ticket.getRoomForThree()}"></td>
                         <td class="column100 column2" th:text="${ticket.getRoomForFour()}"></td>
+                        <td class="column100 column2" th:text="${ticket.getUser().getUsername()}"></td>
                     </tr>
                     </tbody>
                 </table>

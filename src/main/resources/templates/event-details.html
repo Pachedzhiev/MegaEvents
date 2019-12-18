@@ -31,8 +31,8 @@
                     </div>
                     <div >
                         Tickets:<br>
-                        <input type="number" class="round-corners justify-content-center" name="countOfTickets"
-                               placeholder="Count of tickets..."><br><br>
+                        <input type="number" min="0" class="round-corners justify-content-center" name="countOfTickets"
+                               th:value="0"><br><br>
                         <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Reserve</button>
                     </div>
                 </form>

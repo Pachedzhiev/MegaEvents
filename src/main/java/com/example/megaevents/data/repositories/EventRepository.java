@@ -19,4 +19,7 @@ public interface EventRepository extends JpaRepository<Event,String> {
     @Query("select e from Event e inner join e.hotels h where h.name in :name")
     List<Event> findByHotelName(String name);
 
+
+
+
 }

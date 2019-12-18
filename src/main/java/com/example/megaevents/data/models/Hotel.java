@@ -4,10 +4,14 @@ import com.example.megaevents.data.models.base.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.util.List;
+
+import static com.example.megaevents.constants.ConstantError.ERROR_ADDRESS;
+import static com.example.megaevents.constants.ConstantError.ERROR_DESCRIPTION;
 
 @Getter
 @Setter
@@ -19,12 +23,14 @@ public class Hotel extends BaseEntity {
     private String name;
 
     @Column(name="address",nullable = false)
+    @Length(min = 6,message = ERROR_ADDRESS)
     private String address;
 
     @ManyToMany(targetEntity = Event.class, fetch = FetchType.EAGER)
     private List<Event> events;
 
     @Column(name="description",nullable = false)
+    @Length(min = 10,message = ERROR_DESCRIPTION)
     private String description;
 
     @Column(name="singleRoom")

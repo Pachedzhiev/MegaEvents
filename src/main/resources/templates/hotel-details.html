@@ -6,7 +6,7 @@
 </head>
 <body id="page-top">
 <div class="wrapper">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNavForEH">
         <th:block th:include="~{fragments/user-navbar}"/>
     </nav>
 
@@ -30,16 +30,16 @@
                     <div >
                         Enter the rooms you want!<br>
                         Single rooms:<br>
-                        <input type="number" class="round-corners" name="singleRoom"
+                        <input type="number" min="0" th:value="0" class="round-corners" name="singleRoom"
                                placeholder="Count of single rooms..."><br><br>
                         Double rooms:<br>
-                        <input type="number" class="round-corners" name="doubleRoom"
+                        <input type="number" min="0" th:value="0" class="round-corners" name="doubleRoom"
                                placeholder="Count of double rooms..."><br><br>
                         Room for three:<br>
-                        <input type="number" class="round-corners" name="roomForThree"
+                        <input type="number" min="0"  th:value="0" class="round-corners" name="roomForThree"
                                placeholder="Count of rooms for three..."><br><br>
                         Room for four:<br>
-                        <input type="number" class="round-corners" name="roomForFour"
+                        <input type="number" min="0" th:value="0" class="round-corners" name="roomForFour"
                                placeholder="Count of rooms for four..."><br><br>
                         <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Reserve</button>
                     </div>
